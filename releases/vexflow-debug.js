@@ -1,5 +1,5 @@
 /**
- * VexFlow 1.2.41 built on 2016-02-10.
+ * VexFlow 1.2.41 built on 2016-03-13.
  * Copyright (c) 2010 Mohit Muthanna Cheppudira <mohit@muthanna.com>
  *
  * http://www.vexflow.com  http://github.com/0xfe/vexflow
@@ -908,6 +908,13 @@ Vex.Flow.accidentalCodes.accidentals = {
     shift_down: 0
   },
   "n": {
+    code: "v4e",
+    width: 8,
+    gracenote_width: 4.5,
+    shift_right: 0,
+    shift_down: 0
+  },
+  "m": {
     code: "v4e",
     width: 8,
     gracenote_width: 4.5,
@@ -10378,42 +10385,49 @@ Vex.Flow.Music = (function() {
   Music.noteValues = {
     'c':   { root_index: 0, int_val: 0 },
     'cn':  { root_index: 0, int_val: 0 },
+    'cm':  { root_index: 0, int_val: -1 },
     'c#':  { root_index: 0, int_val: 1 },
     'c##': { root_index: 0, int_val: 2 },
     'cb':  { root_index: 0, int_val: 11 },
     'cbb': { root_index: 0, int_val: 10 },
     'd':   { root_index: 1, int_val: 2 },
     'dn':  { root_index: 1, int_val: 2 },
+    'dm':  { root_index: 1, int_val: -1 },
     'd#':  { root_index: 1, int_val: 3 },
     'd##': { root_index: 1, int_val: 4 },
     'db':  { root_index: 1, int_val: 1 },
     'dbb': { root_index: 1, int_val: 0 },
     'e':   { root_index: 2, int_val: 4 },
     'en':  { root_index: 2, int_val: 4 },
+    'em':  { root_index: 2, int_val: -1 },
     'e#':  { root_index: 2, int_val: 5 },
     'e##': { root_index: 2, int_val: 6 },
     'eb':  { root_index: 2, int_val: 3 },
     'ebb': { root_index: 2, int_val: 2 },
     'f':   { root_index: 3, int_val: 5 },
     'fn':  { root_index: 3, int_val: 5 },
+    'fm':  { root_index: 3, int_val: -1 },
     'f#':  { root_index: 3, int_val: 6 },
     'f##': { root_index: 3, int_val: 7 },
     'fb':  { root_index: 3, int_val: 4 },
     'fbb': { root_index: 3, int_val: 3 },
     'g':   { root_index: 4, int_val: 7 },
     'gn':  { root_index: 4, int_val: 7 },
+    'gm':  { root_index: 4, int_val: -1 },
     'g#':  { root_index: 4, int_val: 8 },
     'g##': { root_index: 4, int_val: 9 },
     'gb':  { root_index: 4, int_val: 6 },
     'gbb': { root_index: 4, int_val: 5 },
     'a':   { root_index: 5, int_val: 9 },
     'an':  { root_index: 5, int_val: 9 },
+    'am':  { root_index: 5, int_val: -1 },
     'a#':  { root_index: 5, int_val: 10 },
     'a##': { root_index: 5, int_val: 11 },
     'ab':  { root_index: 5, int_val: 8 },
     'abb': { root_index: 5, int_val: 7 },
     'b':   { root_index: 6, int_val: 11 },
     'bn':  { root_index: 6, int_val: 11 },
+    'bm':  { root_index: 6, int_val: -1 },
     'b#':  { root_index: 6, int_val: 0 },
     'b##': { root_index: 6, int_val: 1 },
     'bb':  { root_index: 6, int_val: 10 },
