@@ -209,9 +209,15 @@ Vex.Flow.Voice = (function() {
           var tickable_bb = tickable.getBoundingBox();
           if (tickable_bb) boundingBox.mergeWith(tickable_bb);
         }
-
-       tickable.setContext(context);
-       tickable.draw();
+       if (tickable.playNote != null && tickable.playNote[0].charAt(1) == 'm') {
+         tickable.setContext(context.setFillStyle("#ccc"));
+         tickable.draw();
+         tickable.setContext(context.setFillStyle("#000"));
+       }
+       else {
+         tickable.setContext(context);
+         tickable.draw();
+       }
       }
 
       this.boundingBox = boundingBox;

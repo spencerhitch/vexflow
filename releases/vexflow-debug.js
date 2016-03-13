@@ -915,9 +915,9 @@ Vex.Flow.accidentalCodes.accidentals = {
     shift_down: 0
   },
   "m": {
-    code: "v4e",
-    width: 8,
-    gracenote_width: 4.5,
+    code: "-1",
+    width: 0,
+    gracenote_width: 0,
     shift_right: 0,
     shift_down: 0
   },
@@ -6861,9 +6861,15 @@ Vex.Flow.Voice = (function() {
           var tickable_bb = tickable.getBoundingBox();
           if (tickable_bb) boundingBox.mergeWith(tickable_bb);
         }
-
-       tickable.setContext(context);
-       tickable.draw();
+       if (tickable.playNote != null && tickable.playNote[0].charAt(1) == 'm') {
+         tickable.setContext(context.setFillStyle("#ccc"));
+         tickable.draw();
+         tickable.setContext(context.setFillStyle("#000"));
+       }
+       else {
+         tickable.setContext(context);
+         tickable.draw();
+       }
       }
 
       this.boundingBox = boundingBox;
@@ -6872,6 +6878,7 @@ Vex.Flow.Voice = (function() {
 
   return Voice;
 }());
+
 // Vex Music Notation
 // Mohit Muthanna <mohit@muthanna.com>
 //
@@ -7489,6 +7496,10 @@ Vex.Flow.Accidental = (function(){
       var acc_x = ((start.x + this.x_shift) - this.width);
       var acc_y = start.y + this.y_shift;
       L("Rendering: ", this.type, acc_x, acc_y);
+
+      if (this.accidental.code == "-1") {
+          return;
+      }
 
       if (!this.cautionary) {
         // Render the accidental alone.

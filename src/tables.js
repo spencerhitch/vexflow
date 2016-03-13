@@ -386,9 +386,9 @@ Vex.Flow.accidentalCodes.accidentals = {
     shift_down: 0
   },
   "m": {
-    code: "v4e",
-    width: 8,
-    gracenote_width: 4.5,
+    code: "-1",
+    width: 0,
+    gracenote_width: 0,
     shift_right: 0,
     shift_down: 0
   },

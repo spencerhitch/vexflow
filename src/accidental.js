@@ -365,6 +365,10 @@ Vex.Flow.Accidental = (function(){
       var acc_y = start.y + this.y_shift;
       L("Rendering: ", this.type, acc_x, acc_y);
 
+      if (this.accidental.code == "-1") {
+          return;
+      }
+
       if (!this.cautionary) {
         // Render the accidental alone.
         Vex.Flow.renderGlyph(this.context, acc_x, acc_y,
