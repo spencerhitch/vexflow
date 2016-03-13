@@ -222,6 +222,7 @@ Vex.Flow.StemmableNote = (function(){
       if (!this.context) throw new Vex.RERR("NoCanvasContext",
           "Can't draw without a canvas context.");
 
+
       this.setStem(new Stem(stem_struct));
       this.stem.setContext(this.context).draw();
     }

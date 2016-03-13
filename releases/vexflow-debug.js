@@ -886,7 +886,21 @@ Vex.Flow.accidentalCodes.accidentals = {
     shift_right: 0,
     shift_down: 0
   },
+  "#m": {
+    code: "v18",
+    width: 10,
+    gracenote_width: 4.5,
+    shift_right: 0,
+    shift_down: 0
+  },
   "##": {
+    code: "v7f",
+    width: 13,
+    gracenote_width: 6,
+    shift_right: -1,
+    shift_down: 0
+  },
+  "##m": {
     code: "v7f",
     width: 13,
     gracenote_width: 6,
@@ -900,6 +914,13 @@ Vex.Flow.accidentalCodes.accidentals = {
     shift_right: 0,
     shift_down: 0
   },
+  "bm": {
+    code: "v44",
+    width: 8,
+    gracenote_width: 4.5,
+    shift_right: 0,
+    shift_down: 0
+  },
   "bb": {
     code: "v26",
     width: 14,
@@ -907,7 +928,21 @@ Vex.Flow.accidentalCodes.accidentals = {
     shift_right: -3,
     shift_down: 0
   },
+  "bbm": {
+    code: "v26",
+    width: 14,
+    gracenote_width: 8,
+    shift_right: -3,
+    shift_down: 0
+  },
   "n": {
+    code: "v4e",
+    width: 8,
+    gracenote_width: 4.5,
+    shift_right: 0,
+    shift_down: 0
+  },
+  "nm": {
     code: "v4e",
     width: 8,
     gracenote_width: 4.5,
@@ -4102,6 +4137,7 @@ Vex.Flow.StemmableNote = (function(){
       if (!this.context) throw new Vex.RERR("NoCanvasContext",
           "Can't draw without a canvas context.");
 
+
       this.setStem(new Stem(stem_struct));
       this.stem.setContext(this.context).draw();
     }
@@ -6861,7 +6897,7 @@ Vex.Flow.Voice = (function() {
           var tickable_bb = tickable.getBoundingBox();
           if (tickable_bb) boundingBox.mergeWith(tickable_bb);
         }
-       if (tickable.playNote != null && tickable.playNote[0].charAt(1) == 'm') {
+       if (tickable.playNote != null && tickable.playNote[0].indexOf('m') != -1) {
          tickable.setContext(context.setFillStyle("#ccc"));
          tickable.draw();
          tickable.setContext(context.setFillStyle("#000"));
@@ -10396,53 +10432,88 @@ Vex.Flow.Music = (function() {
   Music.noteValues = {
     'c':   { root_index: 0, int_val: 0 },
     'cn':  { root_index: 0, int_val: 0 },
-    'cm':  { root_index: 0, int_val: -1 },
     'c#':  { root_index: 0, int_val: 1 },
     'c##': { root_index: 0, int_val: 2 },
     'cb':  { root_index: 0, int_val: 11 },
     'cbb': { root_index: 0, int_val: 10 },
+    'cm':  { root_index: 0, int_val: -1 },
+    'cnm':  { root_index: 0, int_val: -1 },
+    'c#m':  { root_index: 0, int_val: -1 },
+    'c##m':  { root_index: 0, int_val: -1 },
+    'cbm':  { root_index: 0, int_val: -1 },
+    'cbbm':  { root_index: 0, int_val: -1 },
     'd':   { root_index: 1, int_val: 2 },
     'dn':  { root_index: 1, int_val: 2 },
-    'dm':  { root_index: 1, int_val: -1 },
     'd#':  { root_index: 1, int_val: 3 },
     'd##': { root_index: 1, int_val: 4 },
     'db':  { root_index: 1, int_val: 1 },
     'dbb': { root_index: 1, int_val: 0 },
+    'dm':  { root_index: 1, int_val: -1 },
+    'dnm':  { root_index: 1, int_val: -1 },
+    'd#m':  { root_index: 1, int_val: -1 },
+    'd##m':  { root_index: 1, int_val: -1 },
+    'dbm':  { root_index: 1, int_val: -1 },
+    'dbbm':  { root_index: 1, int_val: -1 },
     'e':   { root_index: 2, int_val: 4 },
     'en':  { root_index: 2, int_val: 4 },
-    'em':  { root_index: 2, int_val: -1 },
     'e#':  { root_index: 2, int_val: 5 },
     'e##': { root_index: 2, int_val: 6 },
     'eb':  { root_index: 2, int_val: 3 },
     'ebb': { root_index: 2, int_val: 2 },
+    'em':  { root_index: 2, int_val: -1 },
+    'enm':  { root_index: 2, int_val: -1 },
+    'e#m':  { root_index: 2, int_val: -1 },
+    'e##m':  { root_index: 2, int_val: -1 },
+    'ebm':  { root_index: 2, int_val: -1 },
+    'ebbm':  { root_index: 2, int_val: -1 },
     'f':   { root_index: 3, int_val: 5 },
     'fn':  { root_index: 3, int_val: 5 },
-    'fm':  { root_index: 3, int_val: -1 },
     'f#':  { root_index: 3, int_val: 6 },
     'f##': { root_index: 3, int_val: 7 },
     'fb':  { root_index: 3, int_val: 4 },
     'fbb': { root_index: 3, int_val: 3 },
+    'fm':  { root_index: 3, int_val: -1 },
+    'fnm':  { root_index: 3, int_val: -1 },
+    'f#m':  { root_index: 3, int_val: -1 },
+    'f##m':  { root_index: 3, int_val: -1 },
+    'fbm':  { root_index: 3, int_val: -1 },
+    'fbbm':  { root_index: 3, int_val: -1 },
     'g':   { root_index: 4, int_val: 7 },
     'gn':  { root_index: 4, int_val: 7 },
-    'gm':  { root_index: 4, int_val: -1 },
     'g#':  { root_index: 4, int_val: 8 },
     'g##': { root_index: 4, int_val: 9 },
     'gb':  { root_index: 4, int_val: 6 },
     'gbb': { root_index: 4, int_val: 5 },
+    'gm':  { root_index: 4, int_val: -1 },
+    'gnm':  { root_index: 4, int_val: -1 },
+    'g#m':  { root_index: 4, int_val: -1 },
+    'g##m':  { root_index: 4, int_val: -1 },
+    'gbm':  { root_index: 4, int_val: -1 },
+    'gbbm':  { root_index: 4, int_val: -1 },
     'a':   { root_index: 5, int_val: 9 },
     'an':  { root_index: 5, int_val: 9 },
-    'am':  { root_index: 5, int_val: -1 },
     'a#':  { root_index: 5, int_val: 10 },
     'a##': { root_index: 5, int_val: 11 },
     'ab':  { root_index: 5, int_val: 8 },
     'abb': { root_index: 5, int_val: 7 },
+    'am':  { root_index: 5, int_val: -1 },
+    'anm':  { root_index: 5, int_val: -1 },
+    'a#m':  { root_index: 5, int_val: -1 },
+    'a##m':  { root_index: 5, int_val: -1 },
+    'abm':  { root_index: 5, int_val: -1 },
+    'abbm':  { root_index: 5, int_val: -1 },
     'b':   { root_index: 6, int_val: 11 },
     'bn':  { root_index: 6, int_val: 11 },
-    'bm':  { root_index: 6, int_val: -1 },
     'b#':  { root_index: 6, int_val: 0 },
     'b##': { root_index: 6, int_val: 1 },
     'bb':  { root_index: 6, int_val: 10 },
-    'bbb': { root_index: 6, int_val: 9 }
+    'bbb': { root_index: 6, int_val: 9 },
+    'bm':  { root_index: 6, int_val: -1 },
+    'bnm':  { root_index: 6, int_val: -1 },
+    'b#m':  { root_index: 6, int_val: -1 },
+    'b##m':  { root_index: 6, int_val: -1 },
+    'bbm':  { root_index: 6, int_val: -1 },
+    'bbbm':  { root_index: 6, int_val: -1 }
   };
 
   Music.prototype = {
