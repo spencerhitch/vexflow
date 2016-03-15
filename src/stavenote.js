@@ -9,6 +9,9 @@
 // and a "key" refers to a specific pitch/notehead within a note.*
 //
 // See `tests/stavenote_tests.js` for usage examples.
+//
+var $ = require('jquery');
+
 Vex.Flow.StaveNote = (function() {
   var StaveNote = function(note_struct) {
     if (arguments.length > 0) this.init(note_struct);
@@ -965,14 +968,26 @@ Vex.Flow.StaveNote = (function() {
       // Draw each part of the note
       this.drawLedgerLines();
 
+      var color = "black";
+      if (this.playNote != null && this.playNote[0].indexOf('m') != -1) {
+        color = "#ccc";
+      }
+      this.context.setFillStyle(color);
+      this.context.setStrokeStyle(color);
       this.elem = this.context.openGroup("stavenote", this.id);
-      this.context.openGroup("note", null, {pointerBBox: true});
-        if (render_stem) this.drawStem();
-        this.drawNoteHeads();
-        this.drawFlag();
+        this.context.openGroup("note", null, {pointerBBox: true});
+          if (render_stem) this.drawStem();
+          this.drawNoteHeads();
+          this.drawFlag();
+        this.context.closeGroup();
+        this.drawModifiers();
       this.context.closeGroup();
-      this.drawModifiers();
-      this.context.closeGroup();
+      $(this.elem).mouseover(function() {
+        $(this).find("path").css({"stroke": "red", "fill": "red"});
+      });
+      $(this.elem).mouseout(function() {
+        $(this).find("path").css({"stroke": color, "fill": color});
+      });
     }
   });
 

@@ -1,5 +1,5 @@
 /**
- * VexFlow 1.2.41 built on 2016-03-13.
+ * VexFlow 1.2.41 built on 2016-03-15.
  * Copyright (c) 2010 Mohit Muthanna Cheppudira <mohit@muthanna.com>
  *
  * http://www.vexflow.com  http://github.com/0xfe/vexflow
@@ -4157,6 +4157,9 @@ Vex.Flow.StemmableNote = (function(){
 // and a "key" refers to a specific pitch/notehead within a note.*
 //
 // See `tests/stavenote_tests.js` for usage examples.
+//
+var $ = require('jquery');
+
 Vex.Flow.StaveNote = (function() {
   var StaveNote = function(note_struct) {
     if (arguments.length > 0) this.init(note_struct);
@@ -5113,14 +5116,26 @@ Vex.Flow.StaveNote = (function() {
       // Draw each part of the note
       this.drawLedgerLines();
 
+      var color = "black";
+      if (this.playNote != null && this.playNote[0].indexOf('m') != -1) {
+        color = "#ccc";
+      }
+      this.context.setFillStyle(color);
+      this.context.setStrokeStyle(color);
       this.elem = this.context.openGroup("stavenote", this.id);
-      this.context.openGroup("note", null, {pointerBBox: true});
-        if (render_stem) this.drawStem();
-        this.drawNoteHeads();
-        this.drawFlag();
+        this.context.openGroup("note", null, {pointerBBox: true});
+          if (render_stem) this.drawStem();
+          this.drawNoteHeads();
+          this.drawFlag();
+        this.context.closeGroup();
+        this.drawModifiers();
       this.context.closeGroup();
-      this.drawModifiers();
-      this.context.closeGroup();
+      $(this.elem).mouseover(function() {
+        $(this).find("path").css({"stroke": "red", "fill": "red"});
+      });
+      $(this.elem).mouseout(function() {
+        $(this).find("path").css({"stroke": color, "fill": color});
+      });
     }
   });
 
@@ -6897,15 +6912,10 @@ Vex.Flow.Voice = (function() {
           var tickable_bb = tickable.getBoundingBox();
           if (tickable_bb) boundingBox.mergeWith(tickable_bb);
         }
-       if (tickable.playNote != null && tickable.playNote[0].indexOf('m') != -1) {
-         tickable.setContext(context.setFillStyle("#ccc"));
-         tickable.draw();
-         tickable.setContext(context.setFillStyle("#000"));
-       }
-       else {
-         tickable.setContext(context);
-         tickable.draw();
-       }
+
+        tickable.setContext(context);
+        tickable.draw();
+
       }
 
       this.boundingBox = boundingBox;
