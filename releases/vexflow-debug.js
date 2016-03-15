@@ -4159,6 +4159,7 @@ Vex.Flow.StemmableNote = (function(){
 // See `tests/stavenote_tests.js` for usage examples.
 //
 var $ = require('jquery');
+var id = 0;
 
 Vex.Flow.StaveNote = (function() {
   var StaveNote = function(note_struct) {
@@ -4412,6 +4413,8 @@ Vex.Flow.StaveNote = (function() {
       this.keys = note_struct.keys;
       this.clef = note_struct.clef;
       this.octave_shift = note_struct.octave_shift;
+      this.stavenote_id = "stavenote_" + id.toString(); 
+      id = id + 1;
       this.beam = null;
 
       // Pull note rendering properties
@@ -5117,8 +5120,10 @@ Vex.Flow.StaveNote = (function() {
       this.drawLedgerLines();
 
       var color = "black";
-      if (this.playNote != null && this.playNote[0].indexOf('m') != -1) {
-        color = "#ccc";
+      if (this.playNote != null){
+        if (this.playNote[0].indexOf('m') != -1) {
+          color = "#ccc";
+        }
       }
       this.context.setFillStyle(color);
       this.context.setStrokeStyle(color);
@@ -5130,10 +5135,30 @@ Vex.Flow.StaveNote = (function() {
         this.context.closeGroup();
         this.drawModifiers();
       this.context.closeGroup();
-      $(this.elem).mouseover(function() {
+
+      console.log(this);
+
+      var name = this.stavenote_id;
+      var donor_div = $("<div>",{id: name, class: "pop-up"});
+      donor_div.append("<h4>" + name + "</h4>");
+      donor_div.css({
+          "display":"none",
+          "position":"absolute",
+          "width":"120px",
+          "padding":"2px 2px",
+          "top":"170px",
+          "left":"70px",
+          "background":"#eee"
+      });
+      $(".container").append(donor_div);
+      $(this.elem).mouseover(function(e) {
+        $(".container").find("#" + name).show()
+            .css("top", e.pageY)
+            .css("left", e.pageX);
         $(this).find("path").css({"stroke": "red", "fill": "red"});
       });
       $(this.elem).mouseout(function() {
+        $(".container").find("#" + name).hide();
         $(this).find("path").css({"stroke": color, "fill": color});
       });
     }
