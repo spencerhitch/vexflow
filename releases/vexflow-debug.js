@@ -4415,6 +4415,7 @@ Vex.Flow.StaveNote = (function() {
       this.octave_shift = note_struct.octave_shift;
       this.stavenote_id = "stavenote_" + id.toString(); 
       id = id + 1;
+      this.donor_name = "";
       this.beam = null;
 
       // Pull note rendering properties
@@ -4459,6 +4460,11 @@ Vex.Flow.StaveNote = (function() {
 
       // Calculate left/right padding
       this.calcExtraPx();
+    },
+
+    //Sets a `Donor Name` for the note
+    setDonor: function(name) {
+        this.donor_name = name;
     },
 
     // Builds a `Stem` for the note
@@ -5136,11 +5142,10 @@ Vex.Flow.StaveNote = (function() {
         this.drawModifiers();
       this.context.closeGroup();
 
-      console.log(this);
-
-      var name = this.stavenote_id;
-      var donor_div = $("<div>",{id: name, class: "pop-up"});
-      donor_div.append("<h4>" + name + "</h4>");
+      var id = this.stavenote_id;
+      var name = this.donor_name;
+      var donor_div = $("<div>",{id: id, class: "pop-up"});
+      donor_div.append("<h4>" + name + " " + id + "</h4>");
       donor_div.css({
           "display":"none",
           "position":"absolute",
@@ -5152,13 +5157,13 @@ Vex.Flow.StaveNote = (function() {
       });
       $(".container").append(donor_div);
       $(this.elem).mouseover(function(e) {
-        $(".container").find("#" + name).show()
+        $(".container").find("#" + id).show()
             .css("top", e.pageY)
             .css("left", e.pageX);
         $(this).find("path").css({"stroke": "red", "fill": "red"});
       });
       $(this.elem).mouseout(function() {
-        $(".container").find("#" + name).hide();
+        $(".container").find("#" + id).hide();
         $(this).find("path").css({"stroke": color, "fill": color});
       });
     }
