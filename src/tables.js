@@ -357,7 +357,7 @@ Vex.Flow.accidentalCodes.accidentals = {
     shift_right: 0,
     shift_down: 0
   },
-  "#m": {
+  "#*": {
     code: "v18",
     width: 10,
     gracenote_width: 4.5,
@@ -371,7 +371,7 @@ Vex.Flow.accidentalCodes.accidentals = {
     shift_right: -1,
     shift_down: 0
   },
-  "##m": {
+  "##*": {
     code: "v7f",
     width: 13,
     gracenote_width: 6,
@@ -385,7 +385,7 @@ Vex.Flow.accidentalCodes.accidentals = {
     shift_right: 0,
     shift_down: 0
   },
-  "bm": {
+  "b*": {
     code: "v44",
     width: 8,
     gracenote_width: 4.5,
@@ -399,7 +399,7 @@ Vex.Flow.accidentalCodes.accidentals = {
     shift_right: -3,
     shift_down: 0
   },
-  "bbm": {
+  "bb*": {
     code: "v26",
     width: 14,
     gracenote_width: 8,
@@ -413,14 +413,14 @@ Vex.Flow.accidentalCodes.accidentals = {
     shift_right: 0,
     shift_down: 0
   },
-  "nm": {
+  "n*": {
     code: "v4e",
     width: 8,
     gracenote_width: 4.5,
     shift_right: 0,
     shift_down: 0
   },
-  "m": {
+  "*": {
     code: "-1",
     width: 0,
     gracenote_width: 0,

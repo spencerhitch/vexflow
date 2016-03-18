@@ -979,7 +979,7 @@ Vex.Flow.StaveNote = (function() {
 
       var color = "black";
       if (this.playNote != null){
-        if (this.playNote[0].indexOf('m') != -1) {
+        if (this.playNote[0].indexOf('*') != -1) {
           color = "#ccc";
         }
       }
