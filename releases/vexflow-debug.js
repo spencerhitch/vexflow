@@ -1,5 +1,5 @@
 /**
- * VexFlow 1.2.41 built on 2016-03-17.
+ * VexFlow 1.2.41 built on 2016-03-26.
  * Copyright (c) 2010 Mohit Muthanna Cheppudira <mohit@muthanna.com>
  *
  * http://www.vexflow.com  http://github.com/0xfe/vexflow
@@ -5144,28 +5144,30 @@ Vex.Flow.StaveNote = (function() {
 
       var id = this.stavenote_id;
       var name = this.donor_name;
-      var donor_div = $("<div>",{id: id, class: "pop-up"});
-      donor_div.append("<h4>" + name + " " + id + "</h4>");
-      donor_div.css({
-          "display":"none",
-          "position":"absolute",
-          "width":"120px",
-          "padding":"2px 2px",
-          "top":"170px",
-          "left":"70px",
-          "background":"#eee"
-      });
-      $(".container").append(donor_div);
-      $(this.elem).mouseover(function(e) {
-        $(".container").find("#" + id).show()
-            .css("top", e.pageY)
-            .css("left", e.pageX);
-        $(this).find("path").css({"stroke": "red", "fill": "red"});
-      });
-      $(this.elem).mouseout(function() {
-        $(".container").find("#" + id).hide();
-        $(this).find("path").css({"stroke": color, "fill": color});
-      });
+      if (name) {
+        var donor_div = $("<div>",{id: id, class: "pop-up"});
+        donor_div.append("<h4>" + name + "</h4>");
+        donor_div.css({
+            "display":"none",
+            "position":"absolute",
+            "width":"120px",
+            "padding":"2px 2px",
+            "top":"170px",
+            "left":"70px",
+            "background":"#eee"
+        });
+        $(".container").append(donor_div);
+        $(this.elem).mouseover(function(e) {
+          $(".container").find("#" + id).show()
+              .css("top", e.pageY)
+              .css("left", e.pageX);
+          $(this).find("path").css({"stroke": "red", "fill": "red"});
+        });
+        $(this.elem).mouseout(function() {
+          $(".container").find("#" + id).hide();
+          $(this).find("path").css({"stroke": color, "fill": color});
+        });
+      }
     }
   });
 
@@ -6284,6 +6286,12 @@ Vex.Flow.Beam = (function() {
     // Render the stems for each notes
     drawStems: function() {
       this.notes.forEach(function(note) {
+//        var color = 'black';
+//        if (note.playNote && note.playNote[0].indexOf('*') != -1){
+//            color = '#ccc';
+//        }
+//        this.context.setFillStyle(color);
+//        this.context.setStrokeStyle(color);
         if (note.getStem()) {
           note.getStem().setContext(this.context).draw();
         }
@@ -6372,6 +6380,16 @@ Vex.Flow.Beam = (function() {
       if (!this.postFormatted) {
         this.postFormat();
       }
+
+//      var color = "black";
+//      for (i = 0; i < this.notes.length; i++) {
+//          if (this.notes[i].playNote && this.notes[i].playNote[0].indexOf('*') != -1) {
+//              console.log("Mute in beam");
+//              color = "#ccc";
+//          }
+//      }
+//      this.context.setFillStyle(color);
+//      this.context.setStrokeStyle(color);
 
       this.drawStems();
       this.drawBeamLines();

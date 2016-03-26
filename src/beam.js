@@ -421,6 +421,12 @@ Vex.Flow.Beam = (function() {
     // Render the stems for each notes
     drawStems: function() {
       this.notes.forEach(function(note) {
+//        var color = 'black';
+//        if (note.playNote && note.playNote[0].indexOf('*') != -1){
+//            color = '#ccc';
+//        }
+//        this.context.setFillStyle(color);
+//        this.context.setStrokeStyle(color);
         if (note.getStem()) {
           note.getStem().setContext(this.context).draw();
         }
@@ -509,6 +515,16 @@ Vex.Flow.Beam = (function() {
       if (!this.postFormatted) {
         this.postFormat();
       }
+
+//      var color = "black";
+//      for (i = 0; i < this.notes.length; i++) {
+//          if (this.notes[i].playNote && this.notes[i].playNote[0].indexOf('*') != -1) {
+//              console.log("Mute in beam");
+//              color = "#ccc";
+//          }
+//      }
+//      this.context.setFillStyle(color);
+//      this.context.setStrokeStyle(color);
 
       this.drawStems();
       this.drawBeamLines();

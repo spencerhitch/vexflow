@@ -996,28 +996,30 @@ Vex.Flow.StaveNote = (function() {
 
       var id = this.stavenote_id;
       var name = this.donor_name;
-      var donor_div = $("<div>",{id: id, class: "pop-up"});
-      donor_div.append("<h4>" + name + " " + id + "</h4>");
-      donor_div.css({
-          "display":"none",
-          "position":"absolute",
-          "width":"120px",
-          "padding":"2px 2px",
-          "top":"170px",
-          "left":"70px",
-          "background":"#eee"
-      });
-      $(".container").append(donor_div);
-      $(this.elem).mouseover(function(e) {
-        $(".container").find("#" + id).show()
-            .css("top", e.pageY)
-            .css("left", e.pageX);
-        $(this).find("path").css({"stroke": "red", "fill": "red"});
-      });
-      $(this.elem).mouseout(function() {
-        $(".container").find("#" + id).hide();
-        $(this).find("path").css({"stroke": color, "fill": color});
-      });
+      if (name) {
+        var donor_div = $("<div>",{id: id, class: "pop-up"});
+        donor_div.append("<h4>" + name + "</h4>");
+        donor_div.css({
+            "display":"none",
+            "position":"absolute",
+            "width":"120px",
+            "padding":"2px 2px",
+            "top":"170px",
+            "left":"70px",
+            "background":"#eee"
+        });
+        $(".container").append(donor_div);
+        $(this.elem).mouseover(function(e) {
+          $(".container").find("#" + id).show()
+              .css("top", e.pageY)
+              .css("left", e.pageX);
+          $(this).find("path").css({"stroke": "red", "fill": "red"});
+        });
+        $(this.elem).mouseout(function() {
+          $(".container").find("#" + id).hide();
+          $(this).find("path").css({"stroke": color, "fill": color});
+        });
+      }
     }
   });
 
