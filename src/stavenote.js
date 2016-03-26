@@ -997,6 +997,7 @@ Vex.Flow.StaveNote = (function() {
       var id = this.stavenote_id;
       var name = this.donor_name;
       if (name) {
+        name = name.replace(/_/g, ' ');
         var donor_div = $("<div>",{id: id, class: "pop-up"});
         donor_div.append("<h4>" + name + "</h4>");
         donor_div.css({
