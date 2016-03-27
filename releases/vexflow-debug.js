@@ -6382,18 +6382,22 @@ Vex.Flow.Beam = (function() {
         this.postFormat();
       }
 
-//      var color = "black";
-//      for (i = 0; i < this.notes.length; i++) {
-//          if (this.notes[i].playNote && this.notes[i].playNote[0].indexOf('*') != -1) {
-//              console.log("Mute in beam");
-//              color = "#ccc";
-//          }
-//      }
-//      this.context.setFillStyle(color);
-//      this.context.setStrokeStyle(color);
+      var color = "black";
+      for (i = 0; i < this.notes.length; i++) {
+          if (this.notes[i].playNote && this.notes[i].playNote[0].indexOf('*') != -1) {
+              console.log("Mute in beam");
+              color = "#ccc";
+          }
+      }
+
+      this.context.setFillStyle(color);
+      this.context.setStrokeStyle(color);
 
       this.drawStems();
       this.drawBeamLines();
+
+      this.context.setFillStyle("black");
+      this.context.setStrokeStyle("black");
 
       return true;
     }
