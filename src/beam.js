@@ -421,15 +421,17 @@ Vex.Flow.Beam = (function() {
     // Render the stems for each notes
     drawStems: function() {
       this.notes.forEach(function(note) {
-//        var color = 'black';
-//        if (note.playNote && note.playNote[0].indexOf('*') != -1){
-//            color = '#ccc';
-//        }
-//        this.context.setFillStyle(color);
-//        this.context.setStrokeStyle(color);
+        var color = 'black';
+        if (note.playNote && note.playNote[0].indexOf('*') != -1){
+            color = '#ccc';
+        }
+        this.context.setFillStyle(color);
+        this.context.setStrokeStyle(color);
         if (note.getStem()) {
           note.getStem().setContext(this.context).draw();
         }
+        this.context.setFillStyle("black");
+        this.context.setStrokeStyle("black");
       }, this);
     },
 
@@ -437,6 +439,16 @@ Vex.Flow.Beam = (function() {
     drawBeamLines: function() {
       if (!this.context) throw new Vex.RERR("NoCanvasContext",
           "Can't draw without a canvas context.");
+
+      var color = "black";
+      for (i = 0; i < this.notes.length; i++) {
+          if (this.notes[i].playNote && this.notes[i].playNote[0].indexOf('*') != -1) {
+              console.log("Mute in beam");
+              color = "#ccc";
+          }
+      }
+      this.context.setFillStyle(color);
+      this.context.setStrokeStyle(color);
 
       var valid_beam_durations = ["4", "8", "16", "32", "64"];
 
@@ -483,6 +495,8 @@ Vex.Flow.Beam = (function() {
         first_y_px += beam_width * 1.5;
         last_y_px += beam_width * 1.5;
       }
+      this.context.setFillStyle("black");
+      this.context.setStrokeStyle("black");
     },
 
     // Pre-format the beam
@@ -516,22 +530,10 @@ Vex.Flow.Beam = (function() {
         this.postFormat();
       }
 
-      var color = "black";
-      for (i = 0; i < this.notes.length; i++) {
-          if (this.notes[i].playNote && this.notes[i].playNote[0].indexOf('*') != -1) {
-              console.log("Mute in beam");
-              color = "#ccc";
-          }
-      }
-
-      this.context.setFillStyle(color);
-      this.context.setStrokeStyle(color);
 
       this.drawStems();
       this.drawBeamLines();
 
-      this.context.setFillStyle("black");
-      this.context.setStrokeStyle("black");
 
       return true;
     }
