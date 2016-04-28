@@ -443,7 +443,6 @@ Vex.Flow.Beam = (function() {
       var color = "black";
       for (i = 0; i < this.notes.length; i++) {
           if (this.notes[i].playNote && this.notes[i].playNote[0].indexOf('*') != -1) {
-              console.log("Mute in beam");
               color = "#ccc";
           }
       }
