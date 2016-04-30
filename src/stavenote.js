@@ -1009,15 +1009,15 @@ Vex.Flow.StaveNote = (function() {
             "left":"70px",
             "background":"#eee"
         });
-        $(".container").append(donor_div);
+        $(".score_container").append(donor_div);
         $(this.elem).mouseover(function(e) {
-          $(".container").find("#" + id).show()
+          $(".score_container").find("#" + id).show()
               .css("top", e.pageY)
               .css("left", e.pageX);
           $(this).find("path").css({"stroke": "red", "fill": "red"});
         });
         $(this.elem).mouseout(function() {
-          $(".container").find("#" + id).hide();
+          $(".score_container").find("#" + id).hide();
           $(this).find("path").css({"stroke": color, "fill": color});
         });
       }
