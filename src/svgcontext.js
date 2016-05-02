@@ -98,7 +98,7 @@ Vex.Flow.SVGContext = (function() {
       this.parent.appendChild(group);
       this.parent = group;
       if (cls) group.setAttribute("class", SVGContext.addPrefix(cls));
-      if (id) group.setAttribute("id", SVGContext.addPrefix(id));
+      if (id) group.setAttribute("id", SVGContext.addPrefix(id)); 
 
       if (attrs && attrs.pointerBBox) {
         group.setAttribute("pointer-events", "bounding-box");

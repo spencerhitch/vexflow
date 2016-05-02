@@ -1,5 +1,5 @@
 /**
- * VexFlow 1.2.41 built on 2016-04-29.
+ * VexFlow 1.2.41 built on 2016-05-02.
  * Copyright (c) 2010 Mohit Muthanna Cheppudira <mohit@muthanna.com>
  *
  * http://www.vexflow.com  http://github.com/0xfe/vexflow
@@ -5133,7 +5133,12 @@ Vex.Flow.StaveNote = (function() {
       }
       this.context.setFillStyle(color);
       this.context.setStrokeStyle(color);
-      this.elem = this.context.openGroup("stavenote", this.id);
+      var name = this.donor_name;
+      if (name) {
+        this.elem = this.context.openGroup("stavenote", name);
+      } else {
+        this.elem = this.context.openGroup("stavenote", this.id);
+      }
         this.context.openGroup("note", null, {pointerBBox: true});
           if (render_stem) this.drawStem();
           this.drawNoteHeads();
@@ -5143,29 +5148,35 @@ Vex.Flow.StaveNote = (function() {
       this.context.closeGroup();
 
       var id = this.stavenote_id;
-      var name = this.donor_name;
       if (name) {
-        name = name.replace(/_/g, ' ');
-        var donor_div = $("<div>",{id: id, class: "pop-up"});
-        donor_div.append("<h4>" + name + "</h4>");
-        donor_div.css({
-            "display":"none",
-            "position":"absolute",
-            "width":"120px",
-            "padding":"2px 2px",
-            "top":"170px",
-            "left":"70px",
-            "background":"#eee"
-        });
+        var donor_div;
+        if ($(".score_container").find("div." + name).length > 0) {
+          donor_div = $(".score_container").find("div." + name);
+          console.log("Donor_div", donor_div);
+        } else {
+          donor_div = $("<div>",{id: id, class: name});
+          name = name.replace(/_/g, ' ');
+          donor_div.append("<h4>" + name + "</h4>");
+          donor_div.css({
+              "display":"none",
+              "position":"absolute",
+              "width":"120px",
+              "padding":"2px 2px",
+              "top":"170px",
+              "left":"70px",
+              "background":"#eee",
+              "text-align":"center"
+          });
+        }
         $(".score_container").append(donor_div);
         $(this.elem).mouseover(function(e) {
-          $(".score_container").find("#" + id).show()
+          donor_div.show()
               .css("top", e.pageY)
               .css("left", e.pageX);
           $(this).find("path").css({"stroke": "red", "fill": "red"});
         });
         $(this.elem).mouseout(function() {
-          $(".score_container").find("#" + id).hide();
+          donor_div.hide();
           $(this).find("path").css({"stroke": color, "fill": color});
         });
       }
@@ -11639,7 +11650,7 @@ Vex.Flow.SVGContext = (function() {
       this.parent.appendChild(group);
       this.parent = group;
       if (cls) group.setAttribute("class", SVGContext.addPrefix(cls));
-      if (id) group.setAttribute("id", SVGContext.addPrefix(id));
+      if (id) group.setAttribute("id", SVGContext.addPrefix(id)); 
 
       if (attrs && attrs.pointerBBox) {
         group.setAttribute("pointer-events", "bounding-box");
